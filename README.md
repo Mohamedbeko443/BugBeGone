@@ -1,2 +1,3 @@
-# BugBeGone
-Bug tracking &amp; Resolution System
+#BugBeGone
+
+Bug tracking & Resolution System
