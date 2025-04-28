@@ -5,7 +5,7 @@ import SelectComponent from "./SelectComponent";
 
 
 export default function AddModal({ open, setOpen }) {
-    const [selectValue , setSelectValue] = useState(null);
+    const [selectValue , setSelectValue] = useState('low');
 
     return (
         <Dialog.Root size={{base:'xs',md:'md'}} open={open} onOpenChange={(e) => setOpen(e.open)} placement={'center'} >
@@ -19,8 +19,8 @@ export default function AddModal({ open, setOpen }) {
                         <Dialog.Body pb="4">
                             <Stack gap="4">
                                 <Field.Root>
-                                    <Field.Label>First Name</Field.Label>
-                                    <Input placeholder="First Name" />
+                                    <Field.Label>Title</Field.Label>
+                                    <Input placeholder="title..." />
                                 </Field.Root>
 
                                 <Field.Root >

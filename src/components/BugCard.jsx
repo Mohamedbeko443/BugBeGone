@@ -4,7 +4,7 @@ import { LuBug } from "react-icons/lu";
 
 export default function BugCard() {
   return (
-    <Flex cursor={'pointer'} transition={'all 0.2s ease'} _hover={{ms:2,boxShadow:'lg'}} boxShadow={'md'} gap={1} p={3} borderRadius={7}  borderStart={'5px solid black'} w={'full'}    direction={'column'} justify={'center'} align={'center'}  >
+    <Flex cursor={'pointer'} transition={'all 0.2s ease'} _hover={{ms:6,boxShadow:'lg'}} boxShadow={'md'} gap={1} p={3} borderRadius={7}  borderStart={'5px solid black'} w={'full'}    direction={'column'} justify={'center'} align={'center'}  >
         <Flex   w={'full'} p={1} justify={'space-between'} align={'center'}  >
             <HStack gap={3}>
                 <LuBug size={'25px'} color="black" />

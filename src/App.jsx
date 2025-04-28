@@ -3,6 +3,7 @@ import { Toaster, toaster } from "@/components/ui/toaster"
 import Login from "./pages/login/Login"
 import Header from "./components/Header"
 import BugCard from "./components/BugCard"
+import BugDetails from "./pages/BugDetails/BugDetails"
 
 
 function App() {
@@ -14,14 +15,7 @@ function App() {
 
       <Header/>
 
-    <Container  maxW={"7xl"}>
-        <VStack gap={4}>
-        <BugCard/>
-        <BugCard/>
-        <BugCard/>
-        <BugCard/>
-        </VStack>
-    </Container>
+    <BugDetails/>
     
     
     </>

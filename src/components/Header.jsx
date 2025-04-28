@@ -23,7 +23,7 @@ export default function Header() {
         <Flex p={6} justify={'space-between'}  gap={{base:6,md:0}}  direction={{base:'column',md:'row'}} align={{base:'flex-start',md:'center'}}  borderRadius={7} w={'full'} boxShadow={'md'} >
                 <Box   bg={'white'}>
                     <Heading  size={'3xl'} >
-                        BugBeDone
+                        BugBeGone
                     </Heading>
                     <Text  color={"gray.400"}>Logged in as Mohamed Medhat (dev)</Text>
                 </Box>
