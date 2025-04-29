@@ -5,9 +5,11 @@ import {
     InputGroup,
     NativeSelect,
     Tabs,
+    VStack,
 } from "@chakra-ui/react";
 import { LuSearch, LuFilter } from "react-icons/lu";
 import { useState } from "react";
+import BugCard from "./BugCard";
 
 export default function BugFilter() {
     const [severity, setSeverity] = useState("");
@@ -65,7 +67,7 @@ export default function BugFilter() {
             </Flex>
 
             {/* Status Tabs */}
-            <Tabs.Root defaultValue="all" variant="plain">
+            <Tabs.Root defaultValue="all"   variant="plain">
                 {/* Wide: row, Mobile: column */}
                 <Tabs.List
                     p="1"
@@ -74,6 +76,7 @@ export default function BugFilter() {
                     display={{ base: "flex" }}
                     flexDir={{ base: "column", md: "row" }}
                     bg="blackAlpha.100"
+                    borderRadius={5}
                 >
                     {tabOptions.map((tab) => (
                         <Tabs.Trigger
@@ -96,11 +99,51 @@ export default function BugFilter() {
                     ))}
                     <Tabs.Indicator display="none" />
                 </Tabs.List>
-                <Tabs.Content value="all">Manage your team members</Tabs.Content>
-                <Tabs.Content value="open">Manage your projects1</Tabs.Content>
-                <Tabs.Content value="inProgress">Manage your projects2</Tabs.Content>
-                <Tabs.Content value="review">Manage your projects3</Tabs.Content>
-                <Tabs.Content value="closed">Manage your projects4</Tabs.Content>
+                <Tabs.Content value="all">
+                    <VStack gap={3}>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                    </VStack>
+
+                </Tabs.Content>
+
+                <Tabs.Content value="open">
+                <VStack gap={3}>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                            
+                    </VStack>
+                </Tabs.Content>
+                <Tabs.Content value="inProgress">
+                <VStack gap={3}>
+                            <BugCard/>
+                            <BugCard/>
+                            
+                    </VStack>
+                </Tabs.Content>
+
+                <Tabs.Content value="review">
+                <VStack gap={3}>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                    </VStack>
+                </Tabs.Content>
+
+                <Tabs.Content value="closed">
+                <VStack gap={3}>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                            <BugCard/>
+                    </VStack>
+                </Tabs.Content>
                 
             </Tabs.Root>
         </Container>
