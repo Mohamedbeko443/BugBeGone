@@ -11,6 +11,7 @@ import { LuSearch, LuFilter } from "react-icons/lu";
 import { useState } from "react";
 import BugCard from "./BugCard";
 import LoadingScreen from "./LoadingScreen";
+import EmptyListMessage from "./EmptyListMessage";
 
 export default function BugFilter() {
     const [severity, setSeverity] = useState("");
@@ -121,9 +122,7 @@ export default function BugFilter() {
                 </Tabs.Content>
                 <Tabs.Content value="inProgress">
                 <VStack gap={3}>
-                            <BugCard/>
-                            <BugCard/>
-                            
+                            <EmptyListMessage/>
                     </VStack>
                 </Tabs.Content>
 

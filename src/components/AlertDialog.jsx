@@ -2,7 +2,7 @@ import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react"
 
 export default function AlertDialog({open , setOpen}) {
     return (
-        <Dialog.Root  open={open} onOpenChange={(e) => setOpen(e.open)} placement={'center'} size={{base:'sm',md:'md'}}  role="alertdialog">
+        <Dialog.Root  open={open} onOpenChange={(e) => setOpen(e.open)} placement={'center'} size={{base:'xs',md:'md'}}  role="alertdialog">
             <Portal>
                 <Dialog.Backdrop />
                 <Dialog.Positioner>
