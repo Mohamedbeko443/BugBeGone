@@ -2,11 +2,13 @@ import { Box, Button, Container, Flex, Heading, HStack, Text } from "@chakra-ui/
 import { toaster } from "@/components/ui/toaster"
 import { FiLogOut } from "react-icons/fi";
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import AddModal from "./AddModal";
 
 
 export default function Header() {
     const [open , setOpen] = useState(false);
+    const navigate = useNavigate();
 
     
     //TODO 
@@ -15,6 +17,7 @@ export default function Header() {
                 title: 'you have been logged out successfully',
                 type : 'success'
             })
+            navigate('/login')
     }
 
   return (

@@ -2,8 +2,12 @@ import { Box, Input, Field, Flex, Heading, Text, Button, Spinner } from "@chakra
 import { PasswordInput } from "@/components/ui/password-input";
 import { useFormik } from "formik";
 import {LoginSchema} from "../../schemas/schemas"
+import { useNavigate } from 'react-router-dom';
+import { toaster } from "@/components/ui/toaster"
 
 export default function Login() {
+
+    const navigate = useNavigate();
 
 //TODO api integration 
 
@@ -17,6 +21,13 @@ export default function Login() {
             console.log("Login attempt with:", values);
             await new Promise((resolve) => setTimeout(resolve, 1000)); 
             actions.setSubmitting(false);
+
+            toaster.create({
+                title: 'Welcome back Lio!',
+                type : 'success'
+            })
+
+            navigate('/');
         },
     });
 
