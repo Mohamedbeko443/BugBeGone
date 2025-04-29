@@ -10,6 +10,7 @@ import {
 import { LuSearch, LuFilter } from "react-icons/lu";
 import { useState } from "react";
 import BugCard from "./BugCard";
+import LoadingScreen from "./LoadingScreen";
 
 export default function BugFilter() {
     const [severity, setSeverity] = useState("");
@@ -138,10 +139,7 @@ export default function BugFilter() {
 
                 <Tabs.Content value="closed">
                 <VStack gap={3}>
-                            <BugCard/>
-                            <BugCard/>
-                            <BugCard/>
-                            <BugCard/>
+                            <LoadingScreen/>
                     </VStack>
                 </Tabs.Content>
                 

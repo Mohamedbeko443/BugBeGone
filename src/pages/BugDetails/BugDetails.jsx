@@ -1,13 +1,22 @@
 import { Box, Button, Container, Flex, Heading, HStack, Text, Textarea, VStack } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import AlertDialog from './../../components/AlertDialog';
+
 
 export default function BugDetails() {
     const navigate = useNavigate();
+    const [open , setOpen] = useState(false);
     return (
         <Container gap={2} maxW={'7xl'}>
-            <Box py={4}>
+            <Flex justify={'space-between'}  align={'center'}  py={4}>
                 <Button onClick={() => navigate('/')} w={'fit-content'}>Back to List</Button>
-            </Box>
+
+                <HStack gap={3}>
+                <Button w={'fit-content'}> Edit Report</Button>
+                <Button  onClick ={()=> setOpen(true)} colorPalette={'red'} w={'fit-content'}> Delete </Button>
+                </HStack>
+            </Flex>
 
             <Flex mb={8} p={1} w={'full'} boxShadow={'lg'} borderRadius={5} gap={3} direction={'column'}>
                 <Flex borderRadius={5} w={'full'} direction={'column'} p={{ base: 2, md: 3 }}>
@@ -53,6 +62,8 @@ export default function BugDetails() {
                     </Box>
                 </Flex>
             </Flex>
+
+            <AlertDialog open={open} setOpen={setOpen} />
         </Container>
     );
 }
