@@ -5,6 +5,7 @@ import Header from "./components/Header"
 import BugCard from "./components/BugCard"
 import BugDetails from "./pages/BugDetails/BugDetails"
 import BugDashboard from "./components/BugDashboard"
+import BugFilter from "./components/BugFilter"
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
 
       <Header/>
 
-    <BugDashboard/>
+    <BugFilter/>
     
     
     </>
