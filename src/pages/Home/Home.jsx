@@ -6,10 +6,10 @@ import BugFilter from "../../components/BugFilter";
 
 export default function Home() {
     return (
-        <Box>
+        <>
             <BugDashboard />
             <BugFilter />
-        </Box>
+        </>
 
     )
 }

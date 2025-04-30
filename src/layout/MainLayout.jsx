@@ -5,9 +5,9 @@ import { Box } from "@chakra-ui/react";
 
 export default function MainLayout() {
   return (
-    <Box>
+    <>
         <Header/>
         <Outlet/>
-    </Box>
+    </>
   )
 }
