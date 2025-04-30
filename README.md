@@ -94,20 +94,20 @@ The application will be available at
     http://localhost:5173.
 
 
-   BugBeGone/
-├── public/                # Static assets
-├── src/                   # Source code
-│   ├── components/        # Reusable components
-│   ├── layout/            # Layout components
-│   ├── pages/             # Page components
-│   ├── routes/            # Route definitions
-│   ├── schemas/           # Validation schemas
-│   ├── store/             # State management
-│   ├── utils/             # Utility functions
-│   ├── [App.jsx](http://_vscodecontentref_/1)            # Main app component
-│   ├── [main.jsx](http://_vscodecontentref_/2)           # Entry point
-│   └── [index.css](http://_vscodecontentref_/3)          # Global styles
-├── .gitignore             # Git ignore file
-├── [package.json](http://_vscodecontentref_/4)           # Project metadata and scripts
-├── [vite.config.js](http://_vscodecontentref_/5)         # Vite configuration
-└── [README.md](http://_vscodecontentref_/6)              # Project documentation
+BugBeGone/
+├── public/ # Static assets
+├── src/ # Source code
+│ ├── components/ # Reusable components
+│ ├── layout/ # Layout components
+│ ├── pages/ # Page components
+│ ├── routes/ # Route definitions
+│ ├── schemas/ # Validation schemas
+│ ├── store/ # State management
+│ ├── utils/ # Utility functions
+│ ├── App.jsx # Main app component
+│ ├── main.jsx # Entry point
+│ └── index.css # Global styles
+├── .gitignore # Git ignore file
+├── package.json # Project metadata and scripts
+├── vite.config.js # Vite configuration
+└── README.md # Project documentation
