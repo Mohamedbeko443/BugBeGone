@@ -94,20 +94,3 @@ The application will be available at
     http://localhost:5173.
 
 
-BugBeGone/
-├── public/ # Static assets
-├── src/ # Source code
-│ ├── components/ # Reusable components
-│ ├── layout/ # Layout components
-│ ├── pages/ # Page components
-│ ├── routes/ # Route definitions
-│ ├── schemas/ # Validation schemas
-│ ├── store/ # State management
-│ ├── utils/ # Utility functions
-│ ├── App.jsx # Main app component
-│ ├── main.jsx # Entry point
-│ └── index.css # Global styles
-├── .gitignore # Git ignore file
-├── package.json # Project metadata and scripts
-├── vite.config.js # Vite configuration
-└── README.md # Project documentation
