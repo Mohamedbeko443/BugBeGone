@@ -4,10 +4,20 @@ import { useFormik } from "formik";
 import {LoginSchema} from "../../schemas/schemas"
 import { useNavigate } from 'react-router-dom';
 import { toaster } from "@/components/ui/toaster"
+import useAuthStore from "../../store/Auth";
 
 export default function Login() {
 
+    const fakeData = {
+        name : 'lio',
+        email : 'mohamed@gmail.com',
+        age : 22,
+        role : 'developer'
+    }
+
     const navigate = useNavigate();
+    const { setAccessToken } = useAuthStore();
+    
 
 //TODO api integration 
 
@@ -26,7 +36,7 @@ export default function Login() {
                 title: 'Welcome back Lio!',
                 type : 'success'
             })
-
+            setAccessToken(fakeData)
             navigate('/');
         },
     });
@@ -66,7 +76,7 @@ export default function Login() {
             >
                 <Box mb={7}>
                     <Heading mb={2} size="2xl">
-                        BugBeDone
+                        BugBeGone
                     </Heading>
                     <Text fontSize={"sm"} mt={-2} color={"gray.500"}>
                         Enter your credentials to access the bug tracking system
@@ -83,6 +93,7 @@ export default function Login() {
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        autoComplete="email"
                         isInvalid={formik.touched.email && formik.errors.email}
                     />
                     {formik.touched.email && formik.errors.email && (
@@ -102,6 +113,7 @@ export default function Login() {
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        autoComplete="current-password"
                         isInvalid={formik.touched.password && formik.errors.password}
                     />
                     {formik.touched.password && formik.errors.password && (

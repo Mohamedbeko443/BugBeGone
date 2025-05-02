@@ -4,23 +4,27 @@ import { FiLogOut } from "react-icons/fi";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import AddModal from "./AddModal";
+import useAuthStore from './../store/Auth';
 
 
 export default function Header() {
     const [open , setOpen] = useState(false);
     const navigate = useNavigate();
-
+    
     
     //TODO 
-    const handleLogout = () => {
+    const handleLogout =  () => {
+
+            useAuthStore.persist.clearStorage();
+
             toaster.create({
                 title: 'you have been logged out successfully',
                 type : 'success'
-            })
-            navigate('/login')
+            })            
+            navigate('/login');
     }
 
-  return (
+    return (
     <Container my={5}  maxW={"7xl"} >
         
         <Flex p={6} justify={'space-between'}  gap={{base:6,md:0}}  direction={{base:'column',md:'row'}} align={{base:'flex-start',md:'center'}}  borderRadius={7} w={'full'} boxShadow={'md'} >
