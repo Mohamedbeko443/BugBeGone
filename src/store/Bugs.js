@@ -31,7 +31,7 @@ const useBugsStore = create((set) => ({
     fetchBugById: async (bugId) => {
         set({ loading: true, error: null });
         try {
-            const response = await api.get(`/bugs/${bugId}`);
+            const response = await api.get(`${base}/api/bugs/${bugId}`);
             set({ currentBug: response.data, loading: false });
             return response.data;
         } catch (error) {
@@ -39,7 +39,7 @@ const useBugsStore = create((set) => ({
                 error: error.response?.data?.message || 'Failed to fetch bug',
                 loading: false
             });
-            toaster.create({title:'Failed to Fetch Bugs',type:'error'});
+            toaster.create({title:'Failed to Fetch Bug',type:'error'});
             throw error;
         }
     },

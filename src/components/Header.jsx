@@ -13,8 +13,8 @@ export default function Header() {
     const [open , setOpen] = useState(false);
     const navigate = useNavigate();
     const accessToken = useAuthStore((state) => state.accessToken);
-    const userData = jwtDecode(accessToken);
-    const role = userData.roles[0].split("_")[1];
+    const userData = accessToken ? jwtDecode(accessToken) : null;
+    const role = userData?.roles[0].split("_")[1];
     
     //TODO 
     const handleLogout =  () => {

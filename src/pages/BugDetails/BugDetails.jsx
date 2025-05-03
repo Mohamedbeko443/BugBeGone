@@ -1,12 +1,76 @@
 import { Box, Button, Container, Flex, Heading, HStack, Text, Textarea, VStack } from "@chakra-ui/react";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AlertDialog from './../../components/AlertDialog';
+import useBugsStore from "../../store/Bugs";
+import { useParams } from 'react-router-dom';
+import LoadingScreen from "../../components/LoadingScreen"
+import api from "../../api/api"
+import EmptyListMessage from "../../components/EmptyListMessage";
+import CommentBody from "../../components/CommentBody";
+import { toaster } from "@/components/ui/toaster"
+
+
+
 
 
 export default function BugDetails() {
     const navigate = useNavigate();
+    const base = import.meta.env.VITE_BASE_URL;
     const [open , setOpen] = useState(false);
+    const [comments , setComments] = useState([])
+    const { id } = useParams();
+    const {fetchBugById , error ,  loading , currentBug} = useBugsStore();
+    const fullDate = currentBug?.createdAt ?  currentBug.createdAt.split('-')[0] + '-' +currentBug.createdAt.split('-')[1] : 'none'
+
+
+    const getBug = async () => {
+        try {
+            const bug = await fetchBugById(id);
+        } catch  {
+            navigate('/')
+        }
+    }
+
+    const getComments = async () => {
+        try{
+            const res = await api.get(`${base}/api/comments/${id}`);
+            console.log(res.data);
+            setComments(res.data)
+        }
+        catch
+        {
+            toaster.create({title:'Failed to Fetch Comments',type:'error'});
+        }
+    }
+
+    
+    console.log(currentBug);
+    console.log(comments);
+    
+
+    useEffect(()=>{
+        getBug();
+    },[id])
+
+   
+
+
+    useEffect(()=>{
+        getComments();
+    },[id])
+
+    if(loading || !currentBug)
+    {
+        return <LoadingScreen/>
+    }
+
+    if(error)
+    {
+        return <Text color={'red.500'}>{error}</Text>
+    }
+
+
     return (
         <Container gap={2} maxW={'7xl'}>
             <Flex justify={'space-between'}  align={'center'}  py={4}>
@@ -21,36 +85,21 @@ export default function BugDetails() {
             <Flex mb={8} p={1} w={'full'} boxShadow={'lg'} borderRadius={5} gap={3} direction={'column'}>
                 <Flex borderRadius={5} w={'full'} direction={'column'} p={{ base: 2, md: 3 }}>
                     <Flex w={'full'} justify={'space-between'} align={'center'} p={{ base: 2, md: 6 }}>
-                        <Heading size={{ base: 'lg', md: '2xl', lg: '3xl' }}>Bug Title</Heading>
-                        <Text fontSize={{ base: 'sm', md: 'md' }} color={'gray.400'}>Created: 4/20/2025</Text>
+                        <Heading size={{ base: 'lg', md: '2xl', lg: '3xl' }}>{currentBug.title}</Heading>
+                        <Text fontSize={{ base: 'sm', md: 'md' }} color={'gray.400'}>Created: {fullDate}</Text>
                     </Flex>
 
                     <Box p={{ base: 2, md: 4 }}>
                         <Heading mb={3} size={{ base: 'md', md: '2xl' }}>Description</Heading>
                         <Text fontSize={{ base: 'sm', md: 'md' }} color={'gray.500'}>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempora, deleniti.
+                            {currentBug.description}
                         </Text>
                     </Box>
 
-                    <Heading px={'15px'} my={3} size={{ base: 'md', md: '2xl' }}>Comments (2)</Heading>
+                    <Heading px={'15px'} my={3} size={{ base: 'md', md: '2xl' }}>Comments ({comments.length})</Heading>
 
                     <VStack w={'full'} spacing={4}>
-                        <Box w={'full'} p={3}>
-                            <Box bg={'gray.200'} p={{ base: 2, md: 3 }} borderRadius={5}>
-                                <Heading mb={3} size={'md'}>
-                                    Mohamed Medhat <Text as={'span'} fontSize={'sm'} color={'gray.500'}>4/22/2025</Text>
-                                </Heading>
-                                <Text fontSize={{ base: 'sm', md: 'md' }}>This is a comment btw</Text>
-                            </Box>
-                        </Box>
-                        <Box w={'full'} p={3}>
-                            <Box bg={'gray.200'} p={{ base: 2, md: 3 }} borderRadius={5}>
-                                <Heading mb={3} size={'md'}>
-                                    Mohamed Medhat <Text as={'span'} fontSize={'sm'} color={'gray.500'}>4/22/2025</Text>
-                                </Heading>
-                                <Text fontSize={{ base: 'sm', md: 'md' }}>This is a comment btw</Text>
-                            </Box>
-                        </Box>
+                        {comments.length === 0 ? (<EmptyListMessage title="No comments" message="Add comments to help other devs to solve this problem " />) : (comments.map((comment =>  <CommentBody key={comment.id} comment={comment} /> )))}
                     </VStack>
 
                     <Box p={{ base: 2, md: 6 }}>

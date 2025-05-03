@@ -12,7 +12,7 @@ export default function BugCard({bug}) {
 
     const [dev,setDev] = useState(null);
     const fullDate = bug.updatedAt.split('-')[0] + '-' +bug.updatedAt.split('-')[1] 
-        const navigate = useNavigate();
+    const navigate = useNavigate();
 
 
 
@@ -27,7 +27,7 @@ export default function BugCard({bug}) {
 
 
   return (
-    <Flex  onClick={()=> navigate('/bug/1') } cursor={'pointer'} transition={'all 0.2s ease'} _hover={{ms:6,boxShadow:'lg'}} boxShadow={'md'} gap={1} p={3} borderRadius={7}  borderStart={'5px solid black'} w={'full'}    direction={'column'} justify={'center'} align={'center'}  >
+    <Flex  onClick={()=> navigate(`/bug/${bug.id}`) } cursor={'pointer'} transition={'all 0.2s ease'} _hover={{ms:6,boxShadow:'lg'}} boxShadow={'md'} gap={1} p={3} borderRadius={7}  borderStart={'5px solid black'} w={'full'}    direction={'column'} justify={'center'} align={'center'}  >
         <Flex   w={'full'} p={1} justify={'space-between'} align={'center'}  >
             <HStack gap={3}>
                 <LuBug size={'25px'} color="black" />
