@@ -10,9 +10,6 @@ function App() {
 
 const base = import.meta.env.VITE_BASE_URL;
 
-console.log(base)
-
-
   const setAccessToken = useAuthStore(state => state.setAccessToken);
 
   useEffect(() => {

@@ -1,16 +1,30 @@
 import { Box, Heading, SimpleGrid, Text, Flex, Container } from '@chakra-ui/react';
 import { FaBug, FaExclamationCircle, FaClock } from 'react-icons/fa';
-import { MdErrorOutline } from 'react-icons/md';
+import { Spinner } from "@chakra-ui/react"
+import useBugsStore from '../store/Bugs';
+import { AiOutlineCheckCircle } from "react-icons/ai";
+
 
 
 export default function BugDashboard() {
 
+    const { loading , bugs } = useBugsStore();
+
+    const openBugs = bugs.filter(bug => bug.status === 'OPEN');
+    const inProgressBugs = bugs.filter(bug => bug.status === 'IN_PROGRESS');
+    const closedBugs = bugs.filter(bug => bug.status === 'CLOSED');
+
+    
+    const totalBugs = bugs.length ;
     const bugData = [
-        { label: 'Total Bugs', count: 6, icon: FaBug },
-        { label: 'Open Bugs', count: 2, icon: FaExclamationCircle },
-        { label: 'In Progress', count: 1, icon: FaClock },
-        { label: 'Critical Bugs', count: 1, icon: MdErrorOutline },
+        { label: 'Total Bugs', count: totalBugs  , icon: FaBug },
+        { label: 'Open Bugs', count:openBugs.length , icon: FaExclamationCircle },
+        { label: 'In Progress', count: inProgressBugs.length, icon: FaClock },
+        { label: 'Closed Bugs', count: closedBugs.length, icon: AiOutlineCheckCircle },
     ];
+
+    
+    
 
     return (
         <Container maxW="7xl" py={5}>
@@ -37,7 +51,7 @@ export default function BugDashboard() {
                             </Box>
                         </Flex>
                         <Text fontSize="2xl" fontWeight="bold" color="black">
-                            {bug.count}
+                            { loading ? <Spinner  size={'xs'} /> : bug.count }
                         </Text>
                     </Box>
                 ))}

@@ -5,12 +5,16 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import AddModal from "./AddModal";
 import useAuthStore from './../store/Auth';
+import {jwtDecode} from 'jwt-decode';
+
 
 
 export default function Header() {
     const [open , setOpen] = useState(false);
     const navigate = useNavigate();
-    
+    const accessToken = useAuthStore((state) => state.accessToken);
+    const userData = jwtDecode(accessToken);
+    const role = userData.roles[0].split("_")[1];
     
     //TODO 
     const handleLogout =  () => {
@@ -32,7 +36,7 @@ export default function Header() {
                     <Heading  size={'3xl'} >
                         BugBeGone
                     </Heading>
-                    <Text  color={"gray.400"}>Logged in as Mohamed Medhat (dev)</Text>
+                    <Text  color={"gray.400"}>Logged in as Mohamed Medhat ({role})</Text>
                 </Box>
 
                 <HStack gap={4} >

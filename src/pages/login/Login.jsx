@@ -5,19 +5,17 @@ import {LoginSchema} from "../../schemas/schemas"
 import { useNavigate } from 'react-router-dom';
 import { toaster } from "@/components/ui/toaster"
 import useAuthStore from "../../store/Auth";
+import api from "../../api/api"
+import {jwtDecode} from 'jwt-decode';
+
 
 export default function Login() {
 
-    const fakeData = {
-        name : 'lio',
-        email : 'mohamed@gmail.com',
-        age : 22,
-        role : 'developer'
-    }
-
+    
+    const base = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
     const { setAccessToken } = useAuthStore();
-    
+    console.log(base);
 
 //TODO api integration 
 
@@ -27,17 +25,30 @@ export default function Login() {
             password: '',
         },
         validationSchema: LoginSchema,
-        onSubmit: async (values, actions) => {
-            console.log("Login attempt with:", values);
-            await new Promise((resolve) => setTimeout(resolve, 1000)); 
-            actions.setSubmitting(false);
+        onSubmit: async (values) => {
+            try {
+                
+                const res = await api.post(`${base}/api/auth/authenticate`,{email : values.email, password : values.password} , {withCredentials: true});
+                const {accessToken , refreshToken } = res.data;
+                setAccessToken(accessToken)
+                const userData = jwtDecode(accessToken);
+                console.log(userData);
+                console.log(accessToken);
+                console.log(refreshToken);
 
-            toaster.create({
-                title: 'Welcome back Lio!',
-                type : 'success'
-            })
-            setAccessToken(fakeData)
-            navigate('/');
+                toaster.create({
+                    title: 'Login successful!',
+                    type: 'success'
+                });
+                navigate('/');
+            }
+            catch (err){
+                console.log(err.response.data.message);
+                toaster.create({
+                    title: `${err.response?.data?.message}`,
+                    type: 'error'
+                });            
+            }
         },
     });
 
@@ -52,7 +63,7 @@ export default function Login() {
         >
             <Box textAlign="center">
                 <Heading mb={2} size="4xl">
-                    BugBeDone
+                    BugBeGone
                 </Heading>
                 <Text color={"gray.500"}>
                     Log in to manage your projects

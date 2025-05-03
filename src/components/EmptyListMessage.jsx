@@ -1,7 +1,7 @@
 import { EmptyState, VStack } from "@chakra-ui/react"
 import { FaBug } from 'react-icons/fa';
 
-export default function EmptyListMessage() {
+export default function EmptyListMessage({message = "Hooray! No bugs here. Keep up the good work!" }) {
     return (
         <EmptyState.Root  size={'lg'} >
             <EmptyState.Content>
@@ -11,7 +11,7 @@ export default function EmptyListMessage() {
                 <VStack textAlign="center">
                     <EmptyState.Title>No Bugs Found</EmptyState.Title>
                     <EmptyState.Description>
-                    Hooray! No bugs here. Keep up the good work!
+                    {message}
                     </EmptyState.Description>
                 </VStack>
             </EmptyState.Content>
