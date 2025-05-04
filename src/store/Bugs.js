@@ -69,7 +69,7 @@ const useBugsStore = create((set) => ({
     updateBug: async (bugId, updateData) => {
         set({ loading: true, error: null });
         try {
-            const response = await api.patch(`/bugs/${bugId}`, updateData);
+            const response = await api.put(`${base}/api/bugs/${bugId}`, updateData);
             set(state => ({
                 bugs: state.bugs.map(bug =>
                     bug.id === bugId ? { ...bug, ...response.data } : bug
@@ -79,14 +79,14 @@ const useBugsStore = create((set) => ({
                     state.currentBug,
                 loading: false
             }));
-            toaster.create({title:'Failed to Fetch Bugs',type:'error'});
+            toaster.create({title:'Bug has been updated successfully',type:'success'});
             return response.data;
         } catch (error) {
             set({
                 error: error.response?.data?.message || 'Failed to update bug',
                 loading: false
             });
-            toaster.create({title:'Failed to Fetch Bugs',type:'error'});
+            toaster.create({title:'Failed to Update Bug',type:'error'});
             throw error;
         }
     },

@@ -9,6 +9,9 @@ import api from "../../api/api"
 import EmptyListMessage from "../../components/EmptyListMessage";
 import CommentBody from "../../components/CommentBody";
 import { toaster } from "@/components/ui/toaster"
+import useAuthStore from "../../store/Auth";
+import { jwtDecode } from 'jwt-decode';
+import UpdateModal from "../../components/UpdateModal";
 
 
 
@@ -18,10 +21,20 @@ export default function BugDetails() {
     const navigate = useNavigate();
     const base = import.meta.env.VITE_BASE_URL;
     const [open , setOpen] = useState(false);
-    const [comments , setComments] = useState([])
+    const [comments , setComments] = useState([]);
+    const [addCommentLoading, setAddCommentLoading] = useState(false);
+    const [value , setValue] = useState("");
     const { id } = useParams();
     const {fetchBugById , error ,  loading , currentBug} = useBugsStore();
-    const fullDate = currentBug?.createdAt ?  currentBug.createdAt.split('-')[0] + '-' +currentBug.createdAt.split('-')[1] : 'none'
+    const fullDate = currentBug?.createdAt ?  currentBug.createdAt.split('-')[0] + '-' +currentBug.createdAt.split('-')[1] : 'none';
+    const accessToken = useAuthStore((state) => state.accessToken);
+    const userData = accessToken ? jwtDecode(accessToken) : null;
+    const role = userData?.roles[0].split("_")[1];
+    const [openModal , setModalOpen] = useState(false);
+
+    console.log(role);
+    console.log(userData);
+
 
 
     const getBug = async () => {
@@ -44,9 +57,29 @@ export default function BugDetails() {
         }
     }
 
+
+    const handleAddComment = async () => {
+        try{
+            setAddCommentLoading(true);
+            const res = await api.post(`${base}/api/comments/${id}`,{content: value,bugId: currentBug.id,userId: 0});
+
+            toaster.create({title:'Comment has been created successfully',type:'success'});
+        }
+        catch(err)
+        {
+            setAddCommentLoading(false);
+            console.log(err);
+            toaster.create({title:'Failed to Create Comment',type:'error'});
+        }
+        finally{
+            setAddCommentLoading(false);
+        }
+    }
+
     
     console.log(currentBug);
     console.log(comments);
+    console.log(value);
     
 
     useEffect(()=>{
@@ -77,7 +110,7 @@ export default function BugDetails() {
                 <Button onClick={() => navigate('/')} w={'fit-content'}>Back to List</Button>
 
                 <HStack gap={3}>
-                <Button w={'fit-content'}> Edit Report</Button>
+                <Button w={'fit-content'} onClick={()=> setModalOpen(true)} > Edit Report</Button>
                 <Button  onClick ={()=> setOpen(true)} colorPalette={'red'} w={'fit-content'}> Delete </Button>
                 </HStack>
             </Flex>
@@ -103,7 +136,7 @@ export default function BugDetails() {
                     </VStack>
 
                     <Box p={{ base: 2, md: 6 }}>
-                        <Textarea resize="vertical" size="lg" placeholder="Add a comment..." />
+                        <Textarea value={value} onChange={(e)=>setValue(e.target.value)} resize="vertical" size="lg" placeholder="Add a comment..." />
 
                         <Flex mt={2} justify={'flex-end'} w={'full'}>
                             <Button w={'fit-content'}>Add Comment</Button>
@@ -113,6 +146,7 @@ export default function BugDetails() {
             </Flex>
 
             <AlertDialog open={open} id={currentBug.id} setOpen={setOpen} />
+            <UpdateModal  open={openModal} id={id} SelectedBug={currentBug}  setOpen={setModalOpen} />
         </Container>
     );
 }

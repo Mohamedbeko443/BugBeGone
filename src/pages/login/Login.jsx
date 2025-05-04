@@ -15,9 +15,8 @@ export default function Login() {
     const base = import.meta.env.VITE_BASE_URL;
     const navigate = useNavigate();
     const { setAccessToken } = useAuthStore();
-    console.log(base);
 
-//TODO api integration 
+
 
     const formik = useFormik({
         initialValues: {

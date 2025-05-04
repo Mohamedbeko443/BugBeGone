@@ -7,10 +7,10 @@ export default function SelectComponent({value , setValue}) {
                 value={value}
                 onChange={(e) => setValue(e.currentTarget.value)}
             >
-                <option  value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="critical">Critical</option>
+                <option value="LOW">Low</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="HIGH">High</option>
+                <option value="CRITICAL">Critical</option>
             </NativeSelect.Field>
             <NativeSelect.Indicator />
         </NativeSelect.Root>
