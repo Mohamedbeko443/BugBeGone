@@ -112,7 +112,7 @@ export default function BugDetails() {
                 </Flex>
             </Flex>
 
-            <AlertDialog open={open} setOpen={setOpen} />
+            <AlertDialog open={open} id={currentBug.id} setOpen={setOpen} />
         </Container>
     );
 }

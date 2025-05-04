@@ -95,19 +95,19 @@ const useBugsStore = create((set) => ({
     deleteBug: async (bugId) => {
         set({ loading: true, error: null });
         try {
-            await api.delete(`/bugs/${bugId}`);
+            await api.delete(`${base}/api/bugs/${bugId}`);
             set(state => ({
                 bugs: state.bugs.filter(bug => bug.id !== bugId),
                 currentBug: state.currentBug?.id === bugId ? null : state.currentBug,
                 loading: false
             }));
-            toaster.create({title:'Failed to Fetch Bugs',type:'error'});
+            toaster.create({title:'Bug have been deleted successfully',type:'success'});
         } catch (error) {
             set({
                 error: error.response?.data?.message || 'Failed to delete bug',
                 loading: false
             });
-            toaster.create({title:'Failed to Fetch Bugs',type:'error'});
+            toaster.create({title:'Failed to Delete Bug',type:'error'});
             throw error;
         }
     },
