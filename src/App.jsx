@@ -8,28 +8,28 @@ import axios from 'axios';
 
 function App() {
 
-const base = import.meta.env.VITE_BASE_URL;
+// const base = import.meta.env.VITE_BASE_URL;
 
-  const setAccessToken = useAuthStore(state => state.setAccessToken);
-  const accessToken = useAuthStore((state) => state.accessToken);
+//   const setAccessToken = useAuthStore(state => state.setAccessToken);
+//   const accessToken = useAuthStore((state) => state.accessToken);
 
 
-  useEffect(() => {
-    const tryRefresh = async () => {
-      try {
-        console.log( accessToken);
-        const res = await axios.post(`${base}/api/auth/refresh-token`, {}, {
-          withCredentials: true
-        });
-        setAccessToken(res.data.accessToken);
-        console.log( accessToken);
-      } catch {
-        console.log("No session found");
-      }
-    };
+//   useEffect(() => {
+//     const tryRefresh = async () => {
+//       try {
+//         console.log( accessToken);
+//         const res = await axios.post(`${base}/api/auth/refresh-token`, {}, {
+//           withCredentials: true
+//         });
+//         setAccessToken(res.data.accessToken);
+//         console.log( accessToken);
+//       } catch {
+//         console.log("No session found");
+//       }
+//     };
 
-    tryRefresh();
-  }, []);
+//     tryRefresh();
+//   }, []);
 
 
   return (

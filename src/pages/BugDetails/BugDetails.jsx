@@ -12,6 +12,8 @@ import { toaster } from "@/components/ui/toaster"
 import useAuthStore from "../../store/Auth";
 import { jwtDecode } from 'jwt-decode';
 import UpdateModal from "../../components/UpdateModal";
+import { Spinner } from "@chakra-ui/react"
+
 
 
 
@@ -31,9 +33,6 @@ export default function BugDetails() {
     const userData = accessToken ? jwtDecode(accessToken) : null;
     const role = userData?.roles[0].split("_")[1];
     const [openModal , setModalOpen] = useState(false);
-
-    console.log(role);
-    console.log(userData);
 
 
 
@@ -57,12 +56,18 @@ export default function BugDetails() {
         }
     }
 
-
+    //TODO
     const handleAddComment = async () => {
+        if(value.length < 5 || value.trim() === "")
+        {
+            toaster.create({title:'Please Enter right data',description : 'Comment must me at least 5 characters',type:'error'})
+            return
+        }
         try{
             setAddCommentLoading(true);
-            const res = await api.post(`${base}/api/comments/${id}`,{content: value,bugId: currentBug.id,userId: 0});
-
+            const res = await api.post(`${base}/api/comments`,{content: value,bugId: currentBug.id,userId: 1});
+            setComments([...comments , res.data]);
+            setValue("");
             toaster.create({title:'Comment has been created successfully',type:'success'});
         }
         catch(err)
@@ -77,9 +82,6 @@ export default function BugDetails() {
     }
 
     
-    console.log(currentBug);
-    console.log(comments);
-    console.log(value);
     
 
     useEffect(()=>{
@@ -139,7 +141,7 @@ export default function BugDetails() {
                         <Textarea value={value} onChange={(e)=>setValue(e.target.value)} resize="vertical" size="lg" placeholder="Add a comment..." />
 
                         <Flex mt={2} justify={'flex-end'} w={'full'}>
-                            <Button w={'fit-content'}>Add Comment</Button>
+                            <Button disabled={addCommentLoading} onClick={handleAddComment} w={'fit-content'}>{addCommentLoading ? <Spinner size={'sm'}/> : 'Add Comment'}</Button>
                         </Flex>
                     </Box>
                 </Flex>

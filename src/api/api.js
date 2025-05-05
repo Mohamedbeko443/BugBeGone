@@ -23,8 +23,8 @@ api.interceptors.response.use(
     response => response,
     async error => {
         const originalRequest = error.config;
-          //TODO
-        if (error.response.status === 401 && !originalRequest._retry) {
+        
+        if (error.response.status === 403 && !originalRequest._retry) {
             originalRequest._retry = true;
 
             try {
@@ -40,8 +40,8 @@ api.interceptors.response.use(
                 originalRequest.headers.Authorization = `Bearer ${newToken}`;
                 return api(originalRequest);
             } catch (err) {
-                // or useAuthStore.persist.clearStorage(); to clear all persisted state
-                useAuthStore.getState().removeAccessToken();
+                console.log('Refresh token failed:', err);
+                useAuthStore.persist.clearStorage(); 
                 window.location.href = '/login';
                 return Promise.reject(err);
             }
