@@ -54,7 +54,7 @@ export default function BugDetails() {
         }
     }
 
-    //TODO
+    
     const handleAddComment = async () => {
         if(value.length < 5 || value.trim() === "")
         {
@@ -63,7 +63,7 @@ export default function BugDetails() {
         }
         try{
             setAddCommentLoading(true);
-            const res = await api.post(`${base}/api/comments/create`,{content: value,bugId: currentBug.id,userId: 1});
+            const res = await api.post(`${base}/api/comments/create`,{content: value,bugId: currentBug.id,userId: userData.userId});
             setComments([...comments , res.data]);
             setValue("");
             toaster.create({title:'Comment has been created successfully',type:'success'});
