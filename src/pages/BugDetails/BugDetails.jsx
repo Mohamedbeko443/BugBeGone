@@ -63,7 +63,7 @@ export default function BugDetails() {
         }
         try{
             setAddCommentLoading(true);
-            const res = await api.post(`${base}/api/comments`,{content: value,bugId: currentBug.id,userId: 1});
+            const res = await api.post(`${base}/api/comments/create`,{content: value,bugId: currentBug.id,userId: 1});
             setComments([...comments , res.data]);
             setValue("");
             toaster.create({title:'Comment has been created successfully',type:'success'});

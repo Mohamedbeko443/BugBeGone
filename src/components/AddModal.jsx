@@ -11,7 +11,7 @@ import { Spinner } from "@chakra-ui/react"
 
 export default function AddModal({ open, setOpen }) {
 
-    const { createBug, loading} = useBugsStore();
+    const { createBug, loading } = useBugsStore();
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -29,12 +29,12 @@ export default function AddModal({ open, setOpen }) {
 
     };
 
-        
+
     const handleSubmit = async () => {
         if (formData.description.length < 5 || formData.title.length < 5) {
             toaster.create({
                 title: 'Please Enter right data',
-                description : 'title and description must me at least 5 characters',
+                description: 'title and description must me at least 5 characters',
                 type: 'error'
             })
             return
@@ -56,7 +56,7 @@ export default function AddModal({ open, setOpen }) {
         }
     }
 
-    const resetForm = ()=> {
+    const resetForm = () => {
         setFormData(
             {
                 title: '',
@@ -99,18 +99,18 @@ export default function AddModal({ open, setOpen }) {
                                     <SelectComponent value={formData.severity} setValue={(value) => handleChange('severity', value)} />
                                 </Field.Root>
 
-                                <NumberInput.Root value={formData.developerId} min={1} onValueChange={(e) => handleChange('developerId', e.value)}  >
-                                    <NumberInput.Control />
-                                    <NumberInput.Input />
-                                </NumberInput.Root>
-
+                                    <NumberInput.Root value={formData.developerId} min={1} onValueChange={(e) => handleChange('developerId', e.value)}  >
+                                        <NumberInput.Control />
+                                        <NumberInput.Input />
+                                    </NumberInput.Root>
+                                
                             </Stack>
                         </Dialog.Body>
                         <Dialog.Footer>
                             <Dialog.ActionTrigger asChild>
-                                <Button onClick={()=>{setOpen(false); resetForm(); }} colorPalette={'red'} variant="solid">Cancel</Button>
+                                <Button onClick={() => { setOpen(false); resetForm(); }} colorPalette={'red'} variant="solid">Cancel</Button>
                             </Dialog.ActionTrigger>
-                            <Button disabled={loading} onClick={handleSubmit}>  {loading ? <Spinner size={'xs'} /> : 'Submit Bug' }  </Button>
+                            <Button disabled={loading} onClick={handleSubmit}>  {loading ? <Spinner size={'xs'} /> : 'Submit Bug'}  </Button>
                         </Dialog.Footer>
                     </Dialog.Content>
                 </Dialog.Positioner>

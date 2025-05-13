@@ -119,11 +119,13 @@ export default function UpdateModal({ open, setOpen, SelectedBug, id }) {
                                     <NativeSelect.Indicator />
                                 </NativeSelect.Root>}
 
-
-                                <NumberInput.Root value={formData.developerId} min={1} onValueChange={(e) => handleChange('developerId', e.value)}  >
+                                {firstChar === 'T' && 
+                                    <NumberInput.Root value={formData.developerId} min={1} onValueChange={(e) => handleChange('developerId', e.value)}  >
                                     <NumberInput.Control />
                                     <NumberInput.Input />
-                                </NumberInput.Root>
+                                    </NumberInput.Root>
+                                }
+                                
 
                             </Stack>
                         </Dialog.Body>
