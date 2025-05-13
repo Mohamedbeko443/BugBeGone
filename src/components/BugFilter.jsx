@@ -8,21 +8,23 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import { LuSearch, LuFilter } from "react-icons/lu";
-import { useState } from "react";
-import BugCard from "./BugCard";
-import LoadingScreen from "./LoadingScreen";
-import EmptyListMessage from "./EmptyListMessage";
 import useBugsStore from "../store/Bugs";
+import BugCardList from "./BugCardList";
 
-export default function BugFilter() {
-    const [severity, setSeverity] = useState("");
-    const { loading, bugs } = useBugsStore();
+
+
+export default function BugFilter({severity,setSeverity , searchText , setSearchText}) {
+    
+    const { bugs } = useBugsStore();
 
     const openBugs = bugs.filter(bug => bug.status === 'OPEN');
-    const inProgressBugs = bugs.filter(bug => bug.status === 'IN_PROGRESS');
+    const inProgressBugs = bugs.filter(bug => bug.status === 'IN_PROG');
     const closedBugs = bugs.filter(bug => bug.status === 'CLOSED');
     const resolvedBugs = bugs.filter(bug => bug.status === 'RESOLVED');
 
+
+    
+    console.log(inProgressBugs)
     const tabOptions = [
         { value: "all", label: "All" },
         { value: "open", label: "Open" },
@@ -50,6 +52,8 @@ export default function BugFilter() {
                         color="black"
                         border="1px solid black"
                         _placeholder={{ color: "gray.500" }}
+                        value={searchText}
+                        onChange={(e) => {setSearchText(e.target.value) ; console.log(searchText) }}
                     />
                 </InputGroup>
 
@@ -60,7 +64,7 @@ export default function BugFilter() {
                         <NativeSelect.Field
                             placeholder="Sort by severity"
                             value={severity}
-                            onChange={(e) => { setSeverity(e.target.value) }}
+                            onChange={(e) => { setSeverity(e.target.value) ; console.log(severity) }}
                             bg="white"
                             color="black"
                             border="1px solid black"
@@ -110,63 +114,31 @@ export default function BugFilter() {
                 </Tabs.List>
                 <Tabs.Content value="all">
                     <VStack gap={3}>
-                        {
-                            loading ? (
-                                <LoadingScreen />
-                            ) : bugs.length === 0 ? (
-                                <EmptyListMessage />
-                            ) : (
-                                bugs.map((bug) => <BugCard key={bug.id} bug={bug} />)
-                            )
-                        }
+                            <BugCardList bugs={bugs}  searchText={searchText} severity={severity} />
                     </VStack>
 
                 </Tabs.Content>
 
                 <Tabs.Content value="open">
                     <VStack gap={3}>
-                        {loading ? (
-                            <LoadingScreen />
-                        ) : openBugs.length === 0 ? (
-                            <EmptyListMessage  message="No open bugs found" />
-                        ) : (
-                            openBugs.map((bug) => <BugCard key={bug.id} bug={bug} />)
-                        )}
+                        <BugCardList bugs={openBugs} searchText={searchText} severity={severity} />
                     </VStack>
                 </Tabs.Content>
                 <Tabs.Content value="inProgress">
                     <VStack gap={3}>
-                        {loading ? (
-                            <LoadingScreen />
-                        ) : inProgressBugs.length === 0 ? (
-                            <EmptyListMessage message="No bugs in progress" />
-                        ) : (
-                            inProgressBugs.map((bug) => <BugCard key={bug.id} bug={bug} />)
-                        )}
+                        <BugCardList bugs={inProgressBugs} searchText={searchText} severity={severity} />
                     </VStack>
                 </Tabs.Content>
 
                 <Tabs.Content value="resolved">
                     <VStack gap={3}>
-                    {loading ? (
-                            <LoadingScreen />
-                        ) : resolvedBugs.length === 0 ? (
-                            <EmptyListMessage message="No bugs resolved" />
-                        ) : (
-                            resolvedBugs.map((bug) => <BugCard key={bug.id} bug={bug} />)
-                        )}
+                        <BugCardList bugs={resolvedBugs} searchText={searchText} severity={severity} />
                     </VStack>
                 </Tabs.Content>
 
                 <Tabs.Content value="closed">
                     <VStack gap={3}>
-                    {loading ? (
-                            <LoadingScreen />
-                        ) : closedBugs.length === 0 ? (
-                            <EmptyListMessage message="No bugs closed" />
-                        ) : (
-                            closedBugs.map((bug) => <BugCard key={bug.id} bug={bug} />)
-                        )}
+                        <BugCardList bugs={closedBugs} searchText={searchText} severity={severity} />
                     </VStack>
                 </Tabs.Content>
 

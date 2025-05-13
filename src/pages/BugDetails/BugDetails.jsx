@@ -17,8 +17,6 @@ import { Spinner } from "@chakra-ui/react"
 
 
 
-
-
 export default function BugDetails() {
     const navigate = useNavigate();
     const base = import.meta.env.VITE_BASE_URL;
@@ -95,6 +93,8 @@ export default function BugDetails() {
         getComments();
     },[id])
 
+    console.log(currentBug);
+
     if(loading || !currentBug)
     {
         return <LoadingScreen/>
@@ -112,8 +112,8 @@ export default function BugDetails() {
                 <Button onClick={() => navigate('/')} w={'fit-content'}>Back to List</Button>
 
                 <HStack gap={3}>
-                <Button w={'fit-content'} onClick={()=> setModalOpen(true)} > Edit Report</Button>
-                <Button  onClick ={()=> setOpen(true)} colorPalette={'red'} w={'fit-content'}> Delete </Button>
+                    {role[0] !== 'M' &&  <Button w={'fit-content'} onClick={()=> setModalOpen(true)} > Edit Report</Button> }
+                    {role[0] === 'T' &&  <Button  onClick ={()=> setOpen(true)} colorPalette={'red'} w={'fit-content'}> Delete </Button> }
                 </HStack>
             </Flex>
 

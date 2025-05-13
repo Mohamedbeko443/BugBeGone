@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import BugDashboard from "../../components/BugDashboard";
 import BugFilter from "../../components/BugFilter";
 import useBugsStore from "../../store/Bugs";
@@ -6,8 +6,9 @@ import useBugsStore from "../../store/Bugs";
 
 
 export default function Home() {
-
-    const { fetchBugs} = useBugsStore();
+    const [searchText , setSearchText] = useState("");
+    const [severity , setSeverity] = useState("");
+    const { fetchBugs } = useBugsStore();
 
 
     useEffect(() => {
@@ -18,7 +19,7 @@ export default function Home() {
     return (
         <>
             <BugDashboard  />
-            <BugFilter />
+            <BugFilter searchText={searchText} setSearchText={setSearchText}  severity={severity} setSeverity={setSeverity} />
         </>
 
     )

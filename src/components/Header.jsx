@@ -15,16 +15,17 @@ export default function Header() {
     const navigate = useNavigate();
     const accessToken = useAuthStore((state) => state.accessToken);
     const userData = accessToken ? jwtDecode(accessToken) : null;
-    const role = userData?.roles[0].split("_")[1];
+    const role = userData?.roles[0].split("_")[1] ;
     const base = import.meta.env.VITE_BASE_URL;
+    const firstChar = (typeof role === 'string' && role.length > 0) ? role[0] : undefined;
     const [loading , setLoading] = useState(false)
 
+    console.log(userData);
     
-    
-    const handleLogout =  () => {
+    const handleLogout = async () => {
             try{
                 setLoading(true);
-                const res = api.post(`${base}/api/auth/logout`, {}, {withCredentials: true});
+                const res = await api.post(`${base}/api/auth/logout`, {}, {withCredentials: true});
                 console.log(res.data);
                 toaster.create({
                     title: 'you have been logged out successfully',
@@ -56,11 +57,11 @@ export default function Header() {
                     <Heading  size={'3xl'} >
                         BugBeGone
                     </Heading>
-                    <Text  color={"gray.400"}>Logged in as Mohamed Medhat ({role})</Text>
+                    <Text  color={"gray.400"}>Logged in as {userData?.name} ({role})</Text>
                 </Box>
 
                 <HStack gap={4} >
-                    <Button variant={'solid'} onClick={()=>setOpen(true)} colorPalette={'black'}>New Bug</Button>
+                    {firstChar === 'T'  &&  <Button variant={'solid'} onClick={()=>setOpen(true)} colorPalette={'black'}>New Bug</Button>}
                     <Button onClick={handleLogout} disabled={loading} variant={'solid'} colorPalette={'red'}>  <FiLogOut />  {loading ? <Spinner size={'md'} /> : "Logout"} </Button>
                 </HStack>
         </Flex>

@@ -11,7 +11,7 @@ export default function BugDashboard() {
     const { loading , bugs } = useBugsStore();
 
     const openBugs = bugs.filter(bug => bug.status === 'OPEN');
-    const inProgressBugs = bugs.filter(bug => bug.status === 'IN_PROGRESS');
+    const inProgressBugs = bugs.filter(bug => bug.status === 'IN_PROG');
     const closedBugs = bugs.filter(bug => bug.status === 'CLOSED');
 
     

@@ -15,10 +15,9 @@ export default function BugCard({bug}) {
     const navigate = useNavigate();
 
 
-
         const getDev = async () => {
             const res = await api.get(`${base}/api/users/${bug.developerId}`);
-            setDev( res.data.name);
+            setDev(res.data.name);
         }
         useEffect(()=>{
             getDev();
@@ -26,7 +25,7 @@ export default function BugCard({bug}) {
 
 
 
-  return (
+    return (
     <Flex  onClick={()=> navigate(`/bug/${bug.id}`) } cursor={'pointer'} transition={'all 0.2s ease'} _hover={{ms:6,boxShadow:'lg'}} boxShadow={'md'} gap={1} p={3} borderRadius={7}  borderStart={'5px solid black'} w={'full'}    direction={'column'} justify={'center'} align={'center'}  >
         <Flex   w={'full'} p={1} justify={'space-between'} align={'center'}  >
             <HStack gap={3}>

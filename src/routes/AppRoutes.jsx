@@ -18,7 +18,7 @@ export default function AppRoutes() {
 
       <Route element={<MainLayout />}>
         <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        <Route path="/bug/:id" element={<BugDetails />} />
+        <Route path="/bug/:id" element={<ProtectedRoute><BugDetails /></ProtectedRoute>} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

@@ -137,7 +137,7 @@ export default function Login() {
                     type="submit"
                     w={"full"}
                     p={3}
-                    isDisabled={formik.isSubmitting}
+                    disabled={formik.isSubmitting}
                 >
                     {formik.isSubmitting ? <Spinner size="sm" /> : "Login"}
                 </Button>
